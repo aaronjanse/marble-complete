@@ -47,20 +47,20 @@ class World(object):
         for y, char_list in enumerate(self.map):
             last_was_backtick = False
             for x, char in enumerate(char_list):
-                if char == '`':
+                if char.literal == '`':
                     if not last_was_backtick:
                         last_was_backtick = True
                     else:
                         break
 
-                if char == 'o':
-                    self.map[y][x] = MarbleChar(char)
+                if char.literal == 'o':
+                    self.map[y][x] = MarbleChar(self.env, Pos(x, y), char)
 
     def _setup_operators(self):
         for y, line in enumerate(self.map):
             for x, char in enumerate(line):
-                if char in 't↘T↙':
-                    self.map[y][x] = Toggler(char)
+                if char.literal in 't↘T↙':
+                    self.map[y][x] = Toggler(self.env, Pos(x, y), char)
 
     def _char_obj_array_iter(self, obj_array):
         for char_list in obj_array:
@@ -72,8 +72,7 @@ class World(object):
             for x, char in enumerate(char_list):
                 yield Pos(x, y), char
 
-    @staticmethod
-    def map_from_raw(raw_map: str):
+    def map_from_raw(self, raw_map: str):
         """
         Convert a code in a string to a usable map.
 
@@ -84,12 +83,14 @@ class World(object):
 
         map = []
 
+        env = self.env
+
         # for each line
-        for raw_line in raw_map.split('\n'):
+        for y, raw_line in enumerate(raw_map.split('\n')):
             # removing the comments
             line = raw_line.partition('``')[0] + ' '
             # Convert the str to a list of Char
-            line = [Char(c) for c in line]
+            line = [Char(env, Pos(x, y), c) for x, c in enumerate(line)]
             # add aech row to the map
             map.append(line)
 

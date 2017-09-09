@@ -1,8 +1,13 @@
 from .constants import LEFT_TILT, RIGHT_TILT
 
-class Char(str):
-    def __init__(self, value):
-        self.value = value
+class Char(object):
+    def __init__(self, env, pos, literal):
+        self.env = env
+        self.pos = pos
+        self.literal = str(literal)
+
+    def __str__(self):
+        return self.literal
 
     def isMarble(self):
         return False
@@ -17,17 +22,19 @@ class MarbleChar(Char):
 
 
 class Toggler(Char):
-    def __init__(self, value):
-        super().__init__(value)
+    def __init__(self, env, pos, literal):
+        super().__init__(env, pos, literal)
 
-        self.is_ascii = value in 'tT'
+        literal = str(literal)
 
-        if value in 't↘':
+        self.is_ascii = literal in 'tT'
+
+        if literal in 't↘':
             self.tilt = LEFT_TILT
-        elif value in 'T↙':
+        elif literal in 'T↙':
             self.tilt = RIGHT_TILT
         else:
-            raise Exception('invalid toggler char `{}`'.format(value))
+            raise Exception('invalid toggler char `{}`'.format(literal))
 
     def toggle(self):
         self.tilt = LEFT_TILT if self.tilt == RIGHT_TILT else RIGHT_TILT

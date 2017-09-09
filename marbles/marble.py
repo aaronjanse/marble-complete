@@ -43,23 +43,23 @@ class Marble:
         self.move(char)
 
     def move(self, char):
-        if char in '\\╗╚':
+        if char.literal in '\\╗╚':
             self._change_dir_with_func(lambda dir: Pos(dir.y, dir.x))
-        elif char in '/╝╔':
+        elif char.literal in '/╝╔':
             self._change_dir_with_func(lambda dir: Pos(-dir.y, -dir.x))
-        elif char == '(':
+        elif char.literal == '(':
             self.dir = RIGHT
-        elif char == ')':
+        elif char.literal == ')':
             self.dir = LEFT
-        elif char in '>⇒' and self._is_moving_vert():
+        elif char.literal in '>⇒' and self._is_moving_vert():
             self.dir = RIGHT
-        elif char in '<⇐' and self._is_moving_vert():
+        elif char.literal in '<⇐' and self._is_moving_vert():
             self.dir = LEFT
-        elif char in '^⇑' and self._is_moving_horiz():
+        elif char.literal in '^⇑' and self._is_moving_horiz():
             self.dir = UP
-        elif char in 'v⇓' and self._is_moving_horiz():
+        elif char.literal in 'v⇓' and self._is_moving_horiz():
             self.dir = DOWN
-        elif char == '*':
+        elif char.literal == '*':
             for dir in DIRECTIONS:
                 if self.dir in (dir, -dir):
                     continue
@@ -74,7 +74,7 @@ class Marble:
         elif char.isToggler():
             self.dir = LEFT if char.tilt == RIGHT_TILT else RIGHT
             char.toggle()
-        elif char == ' ':
+        elif char.literal == ' ':
             self.is_dead = True
 
         self.pos += self.dir
@@ -101,13 +101,13 @@ class Marble:
             if not self.env.world.does_loc_exist(loc):
                 continue
 
-            if direction in (UP, DOWN) and self.env.world.get_char_at(loc) == '|':
+            if direction in (UP, DOWN) and self.env.world.get_char_at(loc).literal == '|':
                 return direction
 
-            if direction in (LEFT, RIGHT) and self.env.world.get_char_at(loc) == '-':
+            if direction in (LEFT, RIGHT) and self.env.world.get_char_at(loc).literal == '-':
                 return direction
 
-            if self.env.world.get_char_at(loc) in valid_chars:
+            if self.env.world.get_char_at(loc).literal in valid_chars:
                 return direction
 
         # If we get here without returning, the marble can't find a direction to go!

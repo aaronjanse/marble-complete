@@ -205,7 +205,7 @@ class DefaultIOCallbacks(IOCallbacksStorage):
 
                 # if the line is empty
                 # The aim of this is to skip blocks of white lines (ie. if there is a lot of comments)
-                if not ''.join(line).rstrip():
+                if not ''.join([char.literal for char in line]).rstrip():
                     if last_line_is_empty:
                         continue
                     else:
@@ -215,13 +215,13 @@ class DefaultIOCallbacks(IOCallbacksStorage):
 
                 for x, char in enumerate(line):
 
-                    if char == '\n':
+                    if char.literal == '\n':
                         # The new line in printed only in compat mode, at the end of the loop
                         continue
 
                     # Printing each char with the right color
                     if (x, y) in marbles_position_list:
-                        self.print_char(char, 1, display_y, x)
+                        self.print_char(char.literal, 1, display_y, x)
                     elif char.isToggler():
                         if char.tilt == LEFT_TILT:
                             display_char = 't' if char.is_ascii else '↘'
@@ -229,7 +229,7 @@ class DefaultIOCallbacks(IOCallbacksStorage):
                             display_char = 'T' if char.is_ascii else '↙'
                         self.print_char(display_char, 4, display_y, x)
                     else:
-                        self.print_char(char, 0, display_y, x)
+                        self.print_char(char.literal, 0, display_y, x)
 
                 if self.compat_debug:
                     print()
