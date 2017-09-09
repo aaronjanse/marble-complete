@@ -12,6 +12,16 @@ Unlike AsciiDots, the only logical operator in MarbleComplete is a _toggler_:
 
 The Turing Tumble kickstarter has a [gif of the real life equivalent](https://ksr-ugc.imgix.net/assets/016/325/165/19cae5d12c1d7fbeb07222b17ac63909_original.gif?w=680&fit=max&v=1492659230&auto=format&gif-q=50&q=92&s=d6d2f74ec54534198f285ee2f0672606)
 
+## Running the Interpreter
+
+Run `python3 interpret.py --help` to read about available flags.
+
+For the demo gif, I ran the interpreter in auto-stepped debug mode with a delay of 0.25 seconds. The code was prettified, too.
+
+```
+python3 interpret.py test.marbles -a 0.25 -d -p
+```
+
 ## Documentation
 
 ### Starting & Ending
