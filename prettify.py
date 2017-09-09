@@ -55,7 +55,7 @@ def prettify(original_code):
 
     directly_translated_code_lines = directly_translated_code.split('\n')
 
-    max_line_length = max([len(line) for line in directly_translated_code_lines])
+    max_line_length = max([len(line) for line in directly_translated_code_lines]) + 1
 
     text_grid = []
     text_grid.append(' '*max_line_length+'\n')
