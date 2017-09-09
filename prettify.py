@@ -75,7 +75,7 @@ def prettify(original_code):
         elif mask_char == 'v':
             return char in '|+/\\tT╬╗╔║↙↘⇓⇑*⁕'
         elif mask_char == 'w':
-            return char in '.+/\\tT┆┄╯╰╮╭┼↙↘'
+            return char in '.+/\\tT┆┄╯╰╮╭┼↙↘:!'
         elif mask_char == '_':
             return True
         else:

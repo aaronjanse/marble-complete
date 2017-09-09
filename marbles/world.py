@@ -63,7 +63,7 @@ class World(object):
                     self.map[y][x] = Toggler(self.env, Pos(x, y), char)
                 elif char.literal in '!:':
                     self.map[y][x] = Gate(self.env, Pos(x, y), char)
-                elif char.literal in '+/\\┼╭╮╰╯┄┆':
+                elif char.literal in '*+/\\┼╭╮╰╯┄┆':
                     self.map[y][x] = Wire(self.env, Pos(x, y), char)
 
     def _char_obj_array_iter(self, obj_array):
