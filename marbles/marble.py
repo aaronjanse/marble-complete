@@ -1,6 +1,6 @@
 import sys
 
-from .constants import DIRECTIONS, RIGHT, LEFT, UP, DOWN
+from .constants import DIRECTIONS, RIGHT, LEFT, UP, DOWN, RIGHT_TILT
 from .vector import Pos
 
 
@@ -71,6 +71,9 @@ class Marble:
                     new_marble.pos += dir # make sure it doesn't start on the astrisk and duplicate itself
 
                     self.env.marbles.append(new_marble)
+        elif char.isToggler():
+            self.dir = LEFT if char.tilt == RIGHT_TILT else RIGHT
+            char.toggle()
 
         self.pos += self.dir
 

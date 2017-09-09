@@ -18,6 +18,8 @@ if codecs.lookup(locale.getpreferredencoding()).name == 'ascii':
 from marbles.interpreter import AsciiMarblesInterpreter
 from marbles.callbacks import IOCallbacksStorage
 
+from marbles.constants import LEFT_TILT, RIGHT_TILT
+
 from marbles import terminalsize
 
 try:
@@ -220,8 +222,12 @@ class DefaultIOCallbacks(IOCallbacksStorage):
                     # Printing each char with the right color
                     if (x, y) in marbles_position_list:
                         self.print_char(char, 1, display_y, x)
-                    elif char in '#@~' or char.isOper():
-                        self.print_char(char, 4, display_y, x)
+                    elif char.isToggler():
+                        if char.tilt == LEFT_TILT:
+                            display_char = 't' if char.is_ascii else '↘'
+                        elif char.tilt == RIGHT_TILT:
+                            display_char = 'T' if char.is_ascii else '↙'
+                        self.print_char(display_char, 4, display_y, x)
                     else:
                         self.print_char(char, 0, display_y, x)
 

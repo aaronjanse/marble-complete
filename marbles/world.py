@@ -68,11 +68,8 @@ class World(object):
     def _setup_operators(self):
         for y, line in enumerate(self.map):
             for x, char in enumerate(line):
-                if 0 < x < len(line) - 1:
-                    if line[x - 1] == '{' and line[x + 1] == '}':
-                        self.map[y][x] = CurlyOperChar(char)
-                    elif line[x - 1] == '[' and line[x + 1] == ']':
-                        self.map[y][x] = SquareOperChar(char)
+                if char in 't↘T↙':
+                    self.map[y][x] = Toggler(char)
 
     # ✓
     def _char_obj_array_iter(self, obj_array):
