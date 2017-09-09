@@ -4,6 +4,7 @@ Inspired by:
 https://nbickford.wordpress.com/2014/03/25/images-from-marble-runs-and-turing-machines/
 
 The only operator in this esolang is _toggle_. It works like this (taken from site page for Turing Tumble):
+
 ![Turing Tumble Bit Piece](https://ksr-ugc.imgix.net/assets/016/325/165/19cae5d12c1d7fbeb07222b17ac63909_original.gif?w=680&fit=max&v=1492659230&auto=format&gif-q=50&q=92&s=d6d2f74ec54534198f285ee2f0672606)
 
 A starting marble is represented with a lowercase o (`o`)
