@@ -14,6 +14,11 @@ If you want to create a toggler that starts learning _right_ (like /), use an up
 In order to make togglers move in unison (thereby allowing turing-completeness), connect them with _wires_.  
 In ascii, wires are represented via periods (`.`). These are prettified into unicode lines (e.g. `┄`).
 
+Marbles can also be controlled via _gates_.  
+An open gate is represented by a colon (`:`) and a closed gate is represented by an exclamation mark (`!`).
+
+A gate can be opened/closed via a pulse from a toggler down a connected wire.
+
 <sub>
 ## Ascii vs Unicode source
 Programs are typically written with AsciiDots' ascii path rules:

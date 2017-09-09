@@ -15,6 +15,9 @@ class Char(object):
     def isToggler(self):
         return False
 
+    def isGate(self):
+        return False
+
 
 class MarbleChar(Char):
     def isMarble(self):
@@ -58,7 +61,7 @@ class Toggler(Char):
             char = self.env.world.get_char_at(new_pos)
             if char.literal in '.+/\\┼╭╮╰╯┄┆':
                 known_positions = self.send_pulse_over_wire(new_pos, known_positions)
-            elif char.isToggler():
+            elif char.isToggler() or char.isGate():
                 char.toggle()
                 known_positions.append(new_pos)
 
@@ -66,4 +69,23 @@ class Toggler(Char):
         return known_positions
 
     def isToggler(self):
+        return True
+
+class Gate(Char):
+    def __init__(self, env, pos, literal):
+        super().__init__(env, pos, literal)
+
+        literal = str(literal)
+
+        if literal == ':':
+            self.is_open = True
+        elif literal == '!':
+            self.is_open = False
+        else:
+            raise Exception('invalid toggler char `{}`'.format(literal))
+
+    def toggle(self):
+        self.is_open = not self.is_open
+
+    def isGate(self):
         return True

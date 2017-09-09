@@ -75,6 +75,8 @@ class Marble:
             self.dir = LEFT if char.tilt == RIGHT_TILT else RIGHT
             char.toggle()
             char.send_pulse_over_wire(char.pos)
+        elif char.isGate() and not char.is_open:
+            return # early return; don't update self.pos
         elif char.literal == ' ':
             self.is_dead = True
 

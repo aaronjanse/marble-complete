@@ -228,6 +228,9 @@ class DefaultIOCallbacks(IOCallbacksStorage):
                         elif char.tilt == RIGHT_TILT:
                             display_char = 'T' if char.is_ascii else '↙'
                         self.print_char(display_char, 4, display_y, x)
+                    elif char.isGate():
+                        display_char = ':' if char.is_open else '!'
+                        self.print_char(display_char, 3, display_y, x)
                     else:
                         self.print_char(char.literal, 0, display_y, x)
 
