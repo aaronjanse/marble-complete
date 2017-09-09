@@ -1,42 +1,42 @@
 import threading
 
-from .dot import Dot
+from .dot import Marble
 from .world import World
 
 
-class AsciiDotsInterpreter(object):
+class AsciiMarblesInterpreter(object):
     def __init__(self, env, program, program_dir, run_in_parallel):
         """
         Create a new instance of the interpreter to run the program.
 
-        :param dots.environement.Env env: The environement for the program
+        :param marbles.environement.Env env: The environement for the program
         :param str program: The code of the program
         :param str program_dir: The path to the program directory
-        :param bool run_in_parallel: temporarily, changes the way dots move : one by one or all at the same time
+        :param bool run_in_parallel: temporarily, changes the way marbles move : one by one or all at the same time
         """
 
         self.env = env
         self.env.interpreter = self
         self.env.world = World(env, program, program_dir)
-        self.env.dots = []
+        self.env.marbles = []
 
         self.needs_shutdown = False
 
-        self._setup_dots()
+        self._setup_marbles()
         self.run_in_parallel = run_in_parallel
 
-    def _setup_dots(self):
-        """Fill the dot list with dots from the starting points in the world."""
+    def _setup_marbles(self):
+        """Fill the marble list with marbles from the starting points in the world."""
 
-        self.env.dots = []
-        for pos in self.env.world.get_coords_of_dots():
-            new_dot = Dot(self.env, pos)
+        self.env.marbles = []
+        for pos in self.env.world.get_coords_of_marbles():
+            new_marble = Marble(self.env, pos)
 
-            self.env.dots.append(new_dot)
+            self.env.marbles.append(new_marble)
 
     def run(self, run_in_separate_thread=None, make_thread_daemon=None):
         """
-        Start executing the AsciiDots code
+        Start executing the AsciiMarbles code
 
         Arguments:
         run_in_separate_thread -- If set to True, the program will be interpreted in a separate thread
@@ -48,19 +48,19 @@ class AsciiDotsInterpreter(object):
             inter_thread.start()
             return
 
-        while not self.needs_shutdown and len(self.env.dots) > 0:
-            next_tick_dots = []
+        while not self.needs_shutdown and len(self.env.marbles) > 0:
+            next_tick_marbles = []
 
-            for dot in self.env.dots:
-                dot.simulate_tick(not self.run_in_parallel)
+            for marble in self.env.marbles:
+                marble.simulate_tick(not self.run_in_parallel)
 
-                if not dot.state.is_dead():
-                    next_tick_dots += dot,
+                if not marble.state.is_dead():
+                    next_tick_marbles += marble,
 
             if self.run_in_parallel:
-                self.env.io.on_microtick(self.env.dots[0])
+                self.env.io.on_microtick(self.env.marbles[0])
 
-            self.env.dots = next_tick_dots
+            self.env.marbles = next_tick_marbles
 
         self.env.io.on_finish()
 

@@ -18,9 +18,9 @@ def move_first_time(func):
 class State(object):
     def __init__(self, parent):
         """
-        Describe the state of a dot with functions to get to the next state ofthe state machine.
+        Describe the state of a marble with functions to get to the next state ofthe state machine.
 
-        :param dots.dot.Dot parent:
+        :param marbles.marble.Marble parent:
         """
 
         self.env = parent.env
@@ -50,19 +50,19 @@ class State(object):
 
     def set_parent_direction(self, direction):
         """
-        Sets the direction of the dot
+        Sets the direction of the marble
 
-        :param dots.vector.Pos direction: The new direction of the dot.
+        :param marbles.vector.Pos direction: The new direction of the marble.
         """
 
         self.parent.dir = direction
 
     def is_moving_vert(self):
-        """True if the dot is moving verticaly."""
+        """True if the marble is moving verticaly."""
         return self.parent.dir.y != 0
 
     def is_moving_horiz(self):
-        """True if the dot is moving horizontally."""
+        """True if the marble is moving horizontally."""
         return self.parent.dir.x != 0
 
     def __str__(self):
@@ -71,7 +71,7 @@ class State(object):
     def is_dead(self):
         return False
 
-    def is_two_dots(self):
+    def is_two_marbles(self):
         return False
 
 
@@ -136,14 +136,14 @@ class TravelState(State):
                 next_pos = self.parent.pos + dir
 
                 if self.env.world.does_loc_exist(next_pos) and self.env.world.get_char_at(next_pos) != ' ':
-                    from .dot import Dot
+                    from .marble import Marble
 
-                    new_dot = Dot(self.env, self.parent.pos, id_=self.parent.id,
+                    new_marble = Marble(self.env, self.parent.pos, id_=self.parent.id,
                                   value=self.parent.value, direction=dir, state=TravelState,
                                   stack=self.parent.stack[:])
 
-                    # new_dot.state.move_parent()
-                    self.env.dots.append(new_dot)
+                    # new_marble.state.move_parent()
+                    self.env.marbles.append(new_marble)
         elif char.isSingletonLibReturnWarp():
             self.parent.pos = self.parent.stack.pop()
         elif char.isWarp():
@@ -320,7 +320,7 @@ class PrintSingleQuoteState(State):
         self.move_parent()
 
 
-class TwoDotState(State):
+class TwoMarbleState(State):
     def __init__(self, parent, isMaster, id_mode=None):
         super().__init__(parent)
 
@@ -334,7 +334,7 @@ class TwoDotState(State):
         self.isWaiting = True
         self.age = 0
 
-    def is_two_dots(self):
+    def is_two_marbles(self):
         return True
 
     def next(self, char):
@@ -345,28 +345,28 @@ class TwoDotState(State):
 
     def run(self, char):
         if self.isMaster:
-            # We want to find the companion dot that has been waiting the
-            # longest. At the same time, if we find a dot that is also a master
+            # We want to find the companion marble that has been waiting the
+            # longest. At the same time, if we find a marble that is also a master
             # that has been waiting longer than this, keep on waiting
             candidate_index = -1
             best_candidate_age = -1
 
             ready_to_operate = False
 
-            for idx, dot in enumerate(self.env.dots):
-                if dot.pos == self.parent.pos and dot.state.is_two_dots():
-                    if dot.state.isMaster:
-                        if dot.state.age > self.age:
+            for idx, marble in enumerate(self.env.marbles):
+                if marble.pos == self.parent.pos and marble.state.is_two_marbles():
+                    if marble.state.isMaster:
+                        if marble.state.age > self.age:
                             ready_to_operate = False
                             break
                     else:
-                        age = dot.state.age
+                        age = marble.state.age
                         if age > best_candidate_age:
                             candidate_index = idx
                             ready_to_operate = True
 
             if ready_to_operate:
-                candidate = self.env.dots[candidate_index]
+                candidate = self.env.marbles[candidate_index]
 
                 if candidate.state.id_mode:
                     candidate_par = candidate.id
@@ -400,9 +400,9 @@ class TwoDotState(State):
         raise Exception("DoOperation not implemented!")
 
 
-class OperState(TwoDotState):
+class OperState(TwoMarbleState):
     def __init__(self, parent, isMaster, id_mode=False):
-        TwoDotState.__init__(self, parent, isMaster, id_mode)
+        TwoMarbleState.__init__(self, parent, isMaster, id_mode)
 
     def do_operation(self, char, self_par, candidate_par, candidate, candidate_idx):
         result = char.calc(self_par, candidate_par) * 1
@@ -428,9 +428,9 @@ class OperCurlyState(OperState):
                            id_mode=id_mode)
 
 
-class TildeState(TwoDotState):
+class TildeState(TwoMarbleState):
     def __init__(self, parent, id_mode=False):
-        TwoDotState.__init__(self, parent,
+        TwoMarbleState.__init__(self, parent,
                              isMaster=(lambda self: self.is_moving_horiz()),
                              id_mode=id_mode)
 

@@ -3,16 +3,16 @@ import sys
 from .states import *
 
 
-class Dot:
+class Marble:
     def __init__(self, env, pos, id_=None, value=None, direction=None, state=None, stack=None):
         """
-        The base unit of and ascii dot code : the dot.
+        The base unit of and ascii marble code : the marble.
 
-        :param dots.environement.Env env: The environement for the program
-        :param dots.vector.Pos pos: The position of the dot in the map
-        :param float id_: the id of the dot
+        :param marbles.environement.Env env: The environement for the program
+        :param marbles.vector.Pos pos: The position of the marble in the map
+        :param float id_: the id of the marble
         :param float value: its value
-        :param dots.vector.Pos direction: The direction of the dot
+        :param marbles.vector.Pos direction: The direction of the marble
         :param state: Its actual state
         :param list stack:
         """
@@ -29,24 +29,24 @@ class Dot:
         self.move()
 
     def __repr__(self):
-        return '<Dot pos={pos}, id={id}, value={value}, dir={dir}, stack={stack}>'.format(**self.__dict__)
+        return '<Marble pos={pos}, id={id}, value={value}, dir={dir}, stack={stack}>'.format(**self.__dict__)
 
     def move(self):
-        """Move the dot according to its direction."""
+        """Move the marble according to its direction."""
         self.pos += self.dir
 
     def simulate_tick(self, run_until_waiting):
         """
-        Update the dot to its next state.
+        Update the marble to its next state.
 
-        :param bool run_until_waiting: if false, the dot will perform only one tick, else it will run untill waiting
+        :param bool run_until_waiting: if false, the marble will perform only one tick, else it will run untill waiting
         """
 
         past_locations = []
 
         while True:
 
-            # we need to update the screen if we keep this dot running, nobody will ever do it otherwise
+            # we need to update the screen if we keep this marble running, nobody will ever do it otherwise
             if run_until_waiting:
                 self.env.io.on_microtick(self)
 
@@ -69,7 +69,7 @@ class Dot:
                 self.env.io.on_finish()
                 sys.exit(0)
 
-            # update the dot
+            # update the marble
             self.state = self.state.next(char)
             self.state.run(char)
 
@@ -83,7 +83,7 @@ class Dot:
                 break
 
     def _calculate_direction(self):
-        """Calculate the inial direction of a just created dot."""
+        """Calculate the inial direction of a just created marble."""
         valid_chars = r'\/*^v><+'
 
         for direction in DIRECTIONS:
@@ -102,8 +102,8 @@ class Dot:
             if self.env.world.get_char_at(loc) in valid_chars:
                 return direction
 
-        # If we get here without returning, the dot can't find a direction to go!
-        self.env.io.on_error("dot cannot determine location...\nx: {}, y: {}".format(*self.pos))
+        # If we get here without returning, the marble can't find a direction to go!
+        self.env.io.on_error("marble cannot determine location...\nx: {}, y: {}".format(*self.pos))
 
         self.state = DeadState(self)
         return Pos(0, 0)

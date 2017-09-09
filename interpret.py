@@ -15,7 +15,7 @@ from dots.environement import Env
 if codecs.lookup(locale.getpreferredencoding()).name == 'ascii':
     os.environ['LANG'] = 'en_US.utf-8'
 
-from dots.interpreter import AsciiDotsInterpreter
+from dots.interpreter import AsciiMarblesInterpreter
 from dots.callbacks import IOCallbacksStorage
 
 from dots import terminalsize
@@ -38,12 +38,12 @@ autostep_debug_ = False
 
 
 class DefaultIOCallbacks(IOCallbacksStorage):
-    """The default class to manage the input and output of a dots program."""
+    """The default class to manage the input and output of a marbles program."""
 
     def __init__(self, env, ticks, silent, debug, compat_debug, debug_lines, autostep_debug, output_limit):
         """
 
-        :param dots.environement.Env env: The env of the interpreter
+        :param marbles.environement.Env env: The env of the interpreter
         :param int ticks: The max number of ticks for the program
         :param bool silent: True to turn off all outputs
         :param bool debug: True to show the execution of the program
@@ -177,14 +177,14 @@ class DefaultIOCallbacks(IOCallbacksStorage):
 
         self.on_finish()
 
-    def on_microtick(self, dot):
+    def on_microtick(self, marble):
 
         # we want to show the program
         if self.debug and not self.silent:
 
             display_y = 0
             last_line_is_empty = False
-            dots_position_list = [d.pos for d in self.env.dots if not d.state.is_dead()]
+            marbles_position_list = [d.pos for d in self.env.marbles if not d.state.is_dead()]
 
             # cleaning the screen
             if self.compat_debug:
@@ -218,7 +218,7 @@ class DefaultIOCallbacks(IOCallbacksStorage):
                         continue
 
                     # Printing each char with the right color
-                    if (x, y) in dots_position_list:
+                    if (x, y) in marbles_position_list:
                         self.print_char(char, 1, display_y, x)
                     elif char.isLibWarp():
                         self.print_char(char, 2, display_y, x)
@@ -291,14 +291,14 @@ class DefaultIOCallbacks(IOCallbacksStorage):
 
 @click.command()
 @click.argument('filename')
-@click.option('--debug', '-d', is_flag=True, help='Show the execution of the program and the course of the dots.')
+@click.option('--debug', '-d', is_flag=True, help='Show the execution of the program and the course of the marbles.')
 @click.option('--autostep_debug', '-a', default=False, help='The time between every tick')
 @click.option('--output_limit', '-o', default=0, help='Terminate the program after N outputs.')
 @click.option('--ticks', '-t', default=0, help='Terminate the program after N ticks.')
 @click.option('--silent', '-s', is_flag=True, help='No printing, for benchmarking.')
 @click.option('--compat_debug', '-w', is_flag=True, help='Force the debug rendering without ncurses.')
 @click.option('--debug_lines', '-l', default=default_debug_lines, help='The size of the debug view.')
-@click.option('--run_in_parallel', '-p', is_flag=True, help='All dots move at the same time.', default=True)
+@click.option('--run_in_parallel', '-p', is_flag=True, help='All marbles move at the same time.', default=True)
 def main(filename, ticks, silent, debug, compat_debug, debug_lines, autostep_debug, output_limit, run_in_parallel):
     global interpreter
 
@@ -315,7 +315,7 @@ def main(filename, ticks, silent, debug, compat_debug, debug_lines, autostep_deb
         program = file.read()
 
     try:
-        interpreter = AsciiDotsInterpreter(env, program, program_dir, run_in_parallel)
+        interpreter = AsciiMarblesInterpreter(env, program, program_dir, run_in_parallel)
         interpreter.run()
     except Exception as e:
         io_callbacks.on_finish()

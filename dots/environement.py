@@ -1,22 +1,22 @@
 class Env(object):
     """
-    A container for all the importants parts of an Asciidots program.
+    A container for all the importants parts of an Asciimarbles program.
     """
 
-    def __init__(self, world=None, dots=None, io=None, interpreter=None):
+    def __init__(self, world=None, marbles=None, io=None, interpreter=None):
         """
-        Structure for the for important parts of a dots environement.
+        Structure for the for important parts of a marbles environement.
 
         If you don't pass one of the 4 parameters, you need to set them quickly.
 
-        :type world: dots.world.World
-        :type dots: list[dots.dot.Dot]
-        :type io: dots.callbacks.IOCallbacksStorage
-        :type interpreter: dots.interpreter.AsciiDotsInterpreter
+        :type world: marbles.world.World
+        :type marbles: list[marbles.marble.Marble]
+        :type io: marbles.callbacks.IOCallbacksStorage
+        :type interpreter: marbles.interpreter.AsciiMarblesInterpreter
         """
 
         self.world = world
-        self.dots = dots
+        self.marbles = marbles
         self.io = io
         self.interpreter = interpreter
 

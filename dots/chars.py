@@ -2,7 +2,7 @@ class Char(str):
     def __init__(self, value):
         self.value = value
 
-    def isDot(self):
+    def isMarble(self):
         return False
 
     def isOper(self):
@@ -27,8 +27,8 @@ class Char(str):
         return False
 
 
-class DotChar(Char):
-    def isDot(self):
+class MarbleChar(Char):
+    def isMarble(self):
         return True
 
 
@@ -108,13 +108,13 @@ class LibWarpChar(WarpChar):
         return True
 
 
-# NB: Singleton refers to the library written in ascii dots, not the class itself!
+# NB: Singleton refers to the library written in ascii marbles, not the class itself!
 class SingletonLibWarpChar(LibWarpChar):
     def isSingletonLibWarp(self):
         return True
 
 
-# NB: Singleton refers to the library written in ascii dots, not the class itself!
+# NB: Singleton refers to the library written in ascii marbles, not the class itself!
 class SingletonLibReturnWarpChar(SingletonLibWarpChar):
     def isSingletonLibReturnWarp(self):
         return True

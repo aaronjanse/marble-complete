@@ -11,9 +11,9 @@ from .chars import *
 class World(object):
     def __init__(self, env, world_map, program_dir):
         """
-        Create a new world to do dots races !
+        Create a new world to do marbles races !
 
-        :param dots.environement.Env env: The environement for the program
+        :param marbles.environement.Env env: The environement for the program
         :param str world_map: The string representing the world.
         :param str program_dir: The directory of the program
         """
@@ -34,16 +34,16 @@ class World(object):
 
         self._connect_warps()
 
-        self._update_class_of_dots()
+        self._update_class_of_marbles()
 
-    def get_coords_of_dots(self):
-        """Yiels the cordinates of every dot char in the world."""
+    def get_coords_of_marbles(self):
+        """Yiels the cordinates of every marble char in the world."""
         for y, line in enumerate(self.map):
             if line[0] == '%':
                 continue
 
             for x, char in enumerate(line):
-                if char.isDot():
+                if char.isMarble():
                     yield Pos(x, y)
 
     # ✓
@@ -275,8 +275,8 @@ class World(object):
                 if char in warp_list:
                     char_obj_array[y][x] = WarpChar(char)
 
-    # TODO check if the char is inside of a ascii dots text string
-    def _update_class_of_dots(self):
+    # TODO check if the char is inside of a ascii marbles text string
+    def _update_class_of_marbles(self):
         for y, char_list in enumerate(self.map):
             last_was_backtick = False
             for x, char in enumerate(char_list):
@@ -287,7 +287,7 @@ class World(object):
                         break
 
                 if char == 'o':
-                    self.map[y][x] = DotChar(char)
+                    self.map[y][x] = MarbleChar(char)
 
     # ✓
     def _setup_operators(self):
