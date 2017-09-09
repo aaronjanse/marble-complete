@@ -69,27 +69,26 @@ def prettify(original_code):
         if char == mask_char:
             return True
         elif mask_char == 'p':
-            return char in '-|+/\\tT╬╗╔║═↙↘v^<>⇓⇑⇐⇒*⁕'
+            return char in '-|+/\\tT╬╗╔║═↙↘v^<>⇓⇑⇐⇒*⁕╫╚╝'
         elif mask_char == 'h':
-            return char in '-+/\\tT╬╗╔═↙↘<>⇐⇒*⁕'
+            return char in '-+/\\tT╬╗╔═↙↘<>⇐⇒⇓⇑*⁕╚╝'
         elif mask_char == 'v':
-            return char in '|+/\\tT╬╗╔║↙↘v^⇓⇑*⁕'
+            return char in '|+/\\tT╬╗╔║↙↘v^⇐⇒⇓⇑*⁕╫╚╝'
         elif mask_char == 'w':
-            return char in '.+/\\tT┆┄╯╰╮╭┼↙↘:!'
+            return char in '.+/\\tT┆┄╯╰╮╭┼↙↘:!╫*'
         elif mask_char == '_':
             return True
         else:
             return False
 
-    def transform_text_grid(text_grid, char, mask):
+    def transform_text_grid(text_grid, done_chars, char, masks):
         output = []
         for y in range(1, len(text_grid)-2):
             line = []
             for x in range(1, len(text_grid[y])-2):
                 match_found = False
                 for mask in masks:
-                    # print(mask)
-                    valid = True
+                    valid = not done_chars[y][x]
                     for dy in (-1, 0, 1):
                         for dx in (-1, 0, 1):
                             # print(text_grid[y+dy][x+dx], mask[1+dy][1+dx])
@@ -100,6 +99,7 @@ def prettify(original_code):
                             break
                     if valid:
                         match_found = True
+                        done_chars[y][x] = True
                         line.append(char)
                         break
                 if not match_found:
@@ -114,13 +114,13 @@ def prettify(original_code):
             padded_output.append(' '+''.join(line).ljust(max_line_length+1)+'\n')
         padded_output.append(' '+' '*max_line_length+'\n')
         padded_output.append(' '+' '*max_line_length+'\n')
-        return padded_output
+        return padded_output, done_chars
 
+    done_chars = [[False for _ in line] for line in text_grid]
 
     for char_mask in char_masks:
         char, masks = char_mask
-        for mask in masks:
-            text_grid = transform_text_grid(text_grid, char, mask)
+        text_grid, done_chars = transform_text_grid(text_grid, done_chars, char, masks)
 
     return ''.join(text_grid)
 

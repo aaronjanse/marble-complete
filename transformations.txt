@@ -4,6 +4,21 @@ masks:
 		h+h
 		_v_
 
+  def ╫
+    _v_
+    w+w
+    _v_
+
+  def \
+    _v_
+    h\h
+    _v_
+
+  def /
+    _v_
+    h/h
+    _v_
+
 	def ╗
 		___
 		h\_
@@ -53,7 +68,7 @@ masks:
 		___
 
 		_w_
-		ww_
+		w._
 		___
 
 	def ╰
@@ -62,13 +77,17 @@ masks:
 		___
 
 		_w_
-		_ww
+		_.w
 		___
 
 	def ┄
 		___
 		w._
 		___
+
+    ___
+    w.w
+    ___
 
 	def ┆
 		_w_
