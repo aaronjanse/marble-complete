@@ -1,6 +1,6 @@
 import os
 
-from marbles.vector import Pos
+from .vector import Pos
 from .chars import *
 
 
