@@ -4,7 +4,7 @@ from .states import *
 
 
 class Marble:
-    def __init__(self, env, pos, id_=None, value=None, direction=None, state=None, stack=None):
+    def __init__(self, env, pos, id_=None, value=None, direction=None, state=None):
         """
         The base unit of and ascii marble code : the marble.
 
@@ -14,7 +14,6 @@ class Marble:
         :param float value: its value
         :param marbles.vector.Pos direction: The direction of the marble
         :param state: Its actual state
-        :param list stack:
         """
 
         self.pos = pos
@@ -24,12 +23,11 @@ class Marble:
         self.value = value or 0
         self.state = state(self) if state else TravelState(self)  # type: State
         self.dir = direction or self._calculate_direction()
-        self.stack = stack or []
 
         self.move()
 
     def __repr__(self):
-        return '<Marble pos={pos}, id={id}, value={value}, dir={dir}, stack={stack}>'.format(**self.__dict__)
+        return '<Marble pos={pos}, id={id}, value={value}, dir={dir}>'.format(**self.__dict__)
 
     def move(self):
         """Move the marble according to its direction."""

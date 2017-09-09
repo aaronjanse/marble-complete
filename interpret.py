@@ -220,10 +220,6 @@ class DefaultIOCallbacks(IOCallbacksStorage):
                     # Printing each char with the right color
                     if (x, y) in marbles_position_list:
                         self.print_char(char, 1, display_y, x)
-                    elif char.isLibWarp():
-                        self.print_char(char, 2, display_y, x)
-                    elif char.isWarp():
-                        self.print_char(char, 3, display_y, x)
                     elif char in '#@~' or char.isOper():
                         self.print_char(char, 4, display_y, x)
                     else:

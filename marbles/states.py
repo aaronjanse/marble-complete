@@ -139,18 +139,10 @@ class TravelState(State):
                     from .marble import Marble
 
                     new_marble = Marble(self.env, self.parent.pos, id_=self.parent.id,
-                                  value=self.parent.value, direction=dir, state=TravelState,
-                                  stack=self.parent.stack[:])
+                                  value=self.parent.value, direction=dir, state=TravelState)
 
                     # new_marble.state.move_parent()
                     self.env.marbles.append(new_marble)
-        elif char.isSingletonLibReturnWarp():
-            self.parent.pos = self.parent.stack.pop()
-        elif char.isWarp():
-            if char.isSingletonLibWarp():
-                self.parent.stack.append(self.parent.pos)
-
-            self.parent.pos = char.get_dest_loc()
         else:
             pass
 
