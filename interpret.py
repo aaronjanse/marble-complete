@@ -220,22 +220,21 @@ class DefaultIOCallbacks(IOCallbacksStorage):
                         continue
 
                     # Printing each char with the right color
-                    if (x, y) in marbles_position_list:
-                        self.print_char(char.literal, 1, display_y, x)
-                    elif char.isToggler():
+                    is_dot_loc = (x, y) in marbles_position_list
+                    if char.isToggler():
                         if char.tilt == LEFT_TILT:
                             display_char = 't' if char.is_ascii else '↘'
                         elif char.tilt == RIGHT_TILT:
                             display_char = 'T' if char.is_ascii else '↙'
-                        self.print_char(display_char, 4, display_y, x)
+                        self.print_char(display_char, 4 if not is_dot_loc else 1, display_y, x)
                     elif char.isGate():
                         display_char = ':' if char.is_open else '!'
-                        self.print_char(display_char, 3, display_y, x)
+                        self.print_char(display_char, 3 if not is_dot_loc else 1, display_y, x)
                     elif char.isWire() and char.is_active:
-                        self.print_char(char.literal, 2, display_y, x)
+                        self.print_char(char.literal, 2 if not is_dot_loc else 1, display_y, x)
                         char.is_active = False
                     else:
-                        self.print_char(char.literal, 0, display_y, x)
+                        self.print_char(char.literal, 0 if not is_dot_loc else 1, display_y, x)
 
                 if self.compat_debug:
                     print()
