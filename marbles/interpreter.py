@@ -5,7 +5,7 @@ from .world import World
 
 
 class AsciiMarblesInterpreter(object):
-    def __init__(self, env, program, program_dir, run_in_parallel):
+    def __init__(self, env, program, program_dir):
         """
         Create a new instance of the interpreter to run the program.
 
@@ -23,7 +23,6 @@ class AsciiMarblesInterpreter(object):
         self.needs_shutdown = False
 
         self._setup_marbles()
-        self.run_in_parallel = run_in_parallel
 
     def _setup_marbles(self):
         """Fill the marble list with marbles from the starting points in the world."""
@@ -52,13 +51,12 @@ class AsciiMarblesInterpreter(object):
             next_tick_marbles = []
 
             for marble in self.env.marbles:
-                marble.simulate_tick(not self.run_in_parallel)
+                marble.simulate_tick()
 
                 if not marble.state.is_dead():
                     next_tick_marbles += marble,
 
-            if self.run_in_parallel:
-                self.env.io.on_microtick(self.env.marbles[0])
+            self.env.io.on_microtick(self.env.marbles[0])
 
             self.env.marbles = next_tick_marbles
 

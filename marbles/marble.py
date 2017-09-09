@@ -35,52 +35,30 @@ class Marble:
         """Move the marble according to its direction."""
         self.pos += self.dir
 
-    def simulate_tick(self, run_until_waiting):
+    def simulate_tick(self):
         """
         Update the marble to its next state.
 
         :param bool run_until_waiting: if false, the marble will perform only one tick, else it will run untill waiting
         """
 
-        past_locations = []
+        # If outside the map, he dies.
+        if not self.env.world.does_loc_exist(self.pos):
+            self.state = DeadState(self)
+            return
 
-        while True:
+        char = self.env.world.get_char_at(self.pos)
 
-            # we need to update the screen if we keep this marble running, nobody will ever do it otherwise
-            if run_until_waiting:
-                self.env.io.on_microtick(self)
+        # end of execution
+        if char == '&':
+            self.state = DeadState(self)
 
-            # If it was already at this location, run someone else (prevent infinite loops)
-            if self.pos in past_locations:
-                return
-            past_locations.append(self.pos)
+            self.env.io.on_finish()
+            sys.exit(0)
 
-            # If outside the map, he dies.
-            if not self.env.world.does_loc_exist(self.pos):
-                self.state = DeadState(self)
-                return
-
-            char = self.env.world.get_char_at(self.pos)
-
-            # end of execution
-            if char == '&':
-                self.state = DeadState(self)
-
-                self.env.io.on_finish()
-                sys.exit(0)
-
-            # update the marble
-            self.state = self.state.next(char)
-            self.state.run(char)
-
-            if self.state.is_dead():
-                return
-
-            if self.state.isWaiting:
-                break
-
-            if not run_until_waiting:
-                break
+        # update the marble
+        self.state = self.state.next(char)
+        self.state.run(char)
 
     def _calculate_direction(self):
         """Calculate the inial direction of a just created marble."""

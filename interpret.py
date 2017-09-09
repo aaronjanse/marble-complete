@@ -298,8 +298,7 @@ class DefaultIOCallbacks(IOCallbacksStorage):
 @click.option('--silent', '-s', is_flag=True, help='No printing, for benchmarking.')
 @click.option('--compat_debug', '-w', is_flag=True, help='Force the debug rendering without ncurses.')
 @click.option('--debug_lines', '-l', default=default_debug_lines, help='The size of the debug view.')
-@click.option('--run_in_parallel', '-p', is_flag=True, help='All marbles move at the same time.', default=True)
-def main(filename, ticks, silent, debug, compat_debug, debug_lines, autostep_debug, output_limit, run_in_parallel):
+def main(filename, ticks, silent, debug, compat_debug, debug_lines, autostep_debug, output_limit):
     global interpreter
 
     if autostep_debug is not False:
@@ -315,7 +314,7 @@ def main(filename, ticks, silent, debug, compat_debug, debug_lines, autostep_deb
         program = file.read()
 
     try:
-        interpreter = AsciiMarblesInterpreter(env, program, program_dir, run_in_parallel)
+        interpreter = AsciiMarblesInterpreter(env, program, program_dir)
         interpreter.run()
     except Exception as e:
         io_callbacks.on_finish()
