@@ -1,4 +1,4 @@
-from .constants import LEFT_TILT, RIGHT_TILT
+from .constants import LEFT, RIGHT, UP, DOWN, LEFT_TILT, RIGHT_TILT
 
 class Char(object):
     def __init__(self, env, pos, literal):
@@ -38,6 +38,32 @@ class Toggler(Char):
 
     def toggle(self):
         self.tilt = LEFT_TILT if self.tilt == RIGHT_TILT else RIGHT_TILT
+
+    def send_pulse_over_wire(self, pos, known_positions=None):
+        known_positions = known_positions or []
+
+        if pos not in known_positions:
+            known_positions.append(pos)
+        else:
+            return known_positions
+
+        for direction in (LEFT, RIGHT, UP, DOWN):
+            new_pos = pos + direction
+            if not self.env.world.does_loc_exist(new_pos):
+                continue
+
+            if new_pos in known_positions:
+                continue
+
+            char = self.env.world.get_char_at(new_pos)
+            if char.literal in '.+/\\┼╭╮╰╯┄┆':
+                known_positions = self.send_pulse_over_wire(new_pos, known_positions)
+            elif char.isToggler():
+                char.toggle()
+                known_positions.append(new_pos)
+
+
+        return known_positions
 
     def isToggler(self):
         return True

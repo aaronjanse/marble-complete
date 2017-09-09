@@ -74,6 +74,7 @@ class Marble:
         elif char.isToggler():
             self.dir = LEFT if char.tilt == RIGHT_TILT else RIGHT
             char.toggle()
+            char.send_pulse_over_wire(char.pos)
         elif char.literal == ' ':
             self.is_dead = True
 
