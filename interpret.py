@@ -318,7 +318,12 @@ def main(filename, ticks, silent, debug, compat_debug, debug_lines, autostep_deb
         interpreter.run()
     except Exception as e:
         io_callbacks.on_finish()
-        interpreter.terminate()
+
+        try:
+            interpreter.terminate()
+        except Exception:
+            pass
+
         raise e
 
 
