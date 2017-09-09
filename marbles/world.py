@@ -1,7 +1,3 @@
-# Char inheritance works similar to the Decorator Pattern
-
-# TODO: make the iters have a default arg of self._data_array?
-
 import os
 
 from marbles.vector import Pos
@@ -39,18 +35,14 @@ class World(object):
                 if char.isMarble():
                     yield Pos(x, y)
 
-    # ✓
     def get_char_at(self, pos: Pos):
         """Get the Char at the given position."""
-        # NOTE: _data_array has to be accesed using y, x due to the way it is created
         return self.map[pos.row][pos.col]
 
-    # ✓
     def does_loc_exist(self, loc: Pos):
         """True if this location exists on the map."""
         return 0 <= loc.row < len(self.map) and 0 <= loc.col < len(self.map[loc.row])
 
-    # TODO check if the char is inside of a ascii marbles text string
     def _update_class_of_marbles(self):
         for y, char_list in enumerate(self.map):
             last_was_backtick = False
@@ -64,26 +56,22 @@ class World(object):
                 if char == 'o':
                     self.map[y][x] = MarbleChar(char)
 
-    # ✓
     def _setup_operators(self):
         for y, line in enumerate(self.map):
             for x, char in enumerate(line):
                 if char in 't↘T↙':
                     self.map[y][x] = Toggler(char)
 
-    # ✓
     def _char_obj_array_iter(self, obj_array):
         for char_list in obj_array:
             for char in char_list:
                 yield char
 
-    # ✓
     def _char_obj_array_iter_with_coords(self, obj_array):
         for y, char_list in enumerate(obj_array):
             for x, char in enumerate(char_list):
                 yield Pos(x, y), char
 
-    # ✓✓
     @staticmethod
     def map_from_raw(raw_map: str):
         """
