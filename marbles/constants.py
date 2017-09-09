@@ -3,7 +3,7 @@ Here are defined the constants of the language.
 You will alos find shortcuts for repetitive values in the code like UP and DOWN.
 """
 
-from dots.vector import Pos
+from marbles.vector import Pos
 
 # Defining directions
 UP = Pos(0, -1)

@@ -10,15 +10,15 @@ import time
 
 import click
 
-from dots.environement import Env
+from marbles.environement import Env
 
 if codecs.lookup(locale.getpreferredencoding()).name == 'ascii':
     os.environ['LANG'] = 'en_US.utf-8'
 
-from dots.interpreter import AsciiMarblesInterpreter
-from dots.callbacks import IOCallbacksStorage
+from marbles.interpreter import AsciiMarblesInterpreter
+from marbles.callbacks import IOCallbacksStorage
 
-from dots import terminalsize
+from marbles import terminalsize
 
 try:
     import curses

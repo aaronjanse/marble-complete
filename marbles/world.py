@@ -4,7 +4,7 @@
 
 import os
 
-from dots.vector import Pos
+from marbles.vector import Pos
 from .chars import *
 
 

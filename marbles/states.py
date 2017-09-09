@@ -1,5 +1,5 @@
-from dots.constants import DIRECTIONS, RIGHT, LEFT, UP, DOWN
-from dots.vector import Pos
+from marbles.constants import DIRECTIONS, RIGHT, LEFT, UP, DOWN
+from marbles.vector import Pos
 
 
 def move_first_time(func):
