@@ -231,6 +231,9 @@ class DefaultIOCallbacks(IOCallbacksStorage):
                     elif char.isGate():
                         display_char = ':' if char.is_open else '!'
                         self.print_char(display_char, 3, display_y, x)
+                    elif char.isWire() and char.is_active:
+                        self.print_char(char.literal, 2, display_y, x)
+                        char.is_active = False
                     else:
                         self.print_char(char.literal, 0, display_y, x)
 

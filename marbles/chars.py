@@ -18,6 +18,9 @@ class Char(object):
     def isGate(self):
         return False
 
+    def isWire(self):
+        return False
+
 
 class MarbleChar(Char):
     def isMarble(self):
@@ -59,7 +62,8 @@ class Toggler(Char):
                 continue
 
             char = self.env.world.get_char_at(new_pos)
-            if char.literal in '.+/\\┼╭╮╰╯┄┆':
+            if char.isWire():
+                char.is_active = True
                 known_positions = self.send_pulse_over_wire(new_pos, known_positions)
             elif char.isToggler() or char.isGate():
                 char.toggle()
@@ -88,4 +92,13 @@ class Gate(Char):
         self.is_open = not self.is_open
 
     def isGate(self):
+        return True
+
+class Wire(Char):
+    def __init__(self, env, pos, literal):
+        super().__init__(env, pos, literal)
+
+        self.is_active = False
+
+    def isWire(self):
         return True
