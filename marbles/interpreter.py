@@ -53,7 +53,7 @@ class AsciiMarblesInterpreter(object):
             for marble in self.env.marbles:
                 marble.simulate_tick()
 
-                if not marble.state.is_dead():
+                if not marble.is_dead:
                     next_tick_marbles += marble,
 
             self.env.io.on_microtick(self.env.marbles[0])

@@ -1,62 +1,93 @@
 import sys
 
-from .states import *
+from .constants import DIRECTIONS, RIGHT, LEFT, UP, DOWN
+from .vector import Pos
 
 
 class Marble:
-    def __init__(self, env, pos, id_=None, value=None, direction=None, state=None):
+    def __init__(self, env, pos, direction=None):
         """
         The base unit of and ascii marble code : the marble.
 
         :param marbles.environement.Env env: The environement for the program
         :param marbles.vector.Pos pos: The position of the marble in the map
-        :param float id_: the id of the marble
-        :param float value: its value
         :param marbles.vector.Pos direction: The direction of the marble
-        :param state: Its actual state
         """
 
         self.pos = pos
 
         self.env = env
-        self.id = id_ or 0
-        self.value = value or 0
-        self.state = state(self) if state else TravelState(self)  # type: State
         self.dir = direction or self._calculate_direction()
 
-        self.move()
+        self.is_dead = False
 
     def __repr__(self):
-        return '<Marble pos={pos}, id={id}, value={value}, dir={dir}>'.format(**self.__dict__)
-
-    def move(self):
-        """Move the marble according to its direction."""
-        self.pos += self.dir
+        return '<Marble pos={pos}, dir={dir}>'.format(**self.__dict__)
 
     def simulate_tick(self):
         """
-        Update the marble to its next state.
-
         :param bool run_until_waiting: if false, the marble will perform only one tick, else it will run untill waiting
         """
 
         # If outside the map, he dies.
         if not self.env.world.does_loc_exist(self.pos):
-            self.state = DeadState(self)
+            self.is_dead = True
             return
 
         char = self.env.world.get_char_at(self.pos)
 
         # end of execution
         if char == '&':
-            self.state = DeadState(self)
+            self.is_dead = True
 
             self.env.io.on_finish()
             sys.exit(0)
 
-        # update the marble
-        self.state = self.state.next(char)
-        self.state.run(char)
+        # update the marble's position
+        self.move(char)
+
+    def move(self, char):
+        if char == '\\':
+            self._change_dir_with_func(lambda dir: Pos(dir.y, dir.x))
+        elif char == '/':
+            self._change_dir_with_func(lambda dir: Pos(-dir.y, -dir.x))
+        elif char == '(':
+            self.dir = RIGHT
+        elif char == ')':
+            self.dir = LEFT
+        elif char == '>' and self._is_moving_vert():
+            self.dir = RIGHT
+        elif char == '<' and self._is_moving_vert():
+            self.dir = LEFT
+        elif char == '^' and self._is_moving_horiz():
+            self.dir = UP
+        elif char == 'v' and self._is_moving_horiz():
+            self.dir = DOWN
+        elif char == '*':
+            for dir in DIRECTIONS:
+                if self.dir in (dir, -dir):
+                    continue
+
+                next_pos = self.pos + dir
+
+                if self.env.world.does_loc_exist(next_pos) and self.env.world.get_char_at(next_pos) != ' ':
+                    new_marble = Marble(self.env, self.pos, direction=dir)
+
+                    # new_marble.simulate_tick()
+                    self.env.marbles.append(new_marble)
+
+        self.pos += self.dir
+
+    def _is_moving_vert(self):
+        """True if the marble is moving verticaly."""
+        return self.dir.y != 0
+
+    def _is_moving_horiz(self):
+        """True if the marble is moving horizontally."""
+        return self.dir.x != 0
+
+    def _change_dir_with_func(self, new_dir_lambda):
+        self.dir = new_dir_lambda(self.dir)
 
     def _calculate_direction(self):
         """Calculate the inial direction of a just created marble."""
@@ -81,5 +112,5 @@ class Marble:
         # If we get here without returning, the marble can't find a direction to go!
         self.env.io.on_error("marble cannot determine location...\nx: {}, y: {}".format(*self.pos))
 
-        self.state = DeadState(self)
+        self.is_dead = True
         return Pos(0, 0)

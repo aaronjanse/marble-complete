@@ -184,7 +184,7 @@ class DefaultIOCallbacks(IOCallbacksStorage):
 
             display_y = 0
             last_line_is_empty = False
-            marbles_position_list = [d.pos for d in self.env.marbles if not d.state.is_dead()]
+            marbles_position_list = [d.pos for d in self.env.marbles if not d.is_dead]
 
             # cleaning the screen
             if self.compat_debug:
