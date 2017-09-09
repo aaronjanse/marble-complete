@@ -68,8 +68,8 @@ class Marble:
 
                 if self.env.world.does_loc_exist(next_pos) and self.env.world.get_char_at(next_pos) != ' ':
                     new_marble = Marble(self.env, self.pos, direction=dir)
+                    new_marble.pos += dir # make sure it doesn't start on the astrisk and duplicate itself
 
-                    # new_marble.simulate_tick()
                     self.env.marbles.append(new_marble)
 
         self.pos += self.dir
