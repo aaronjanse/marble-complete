@@ -69,11 +69,11 @@ def prettify(original_code):
         if char == mask_char:
             return True
         elif mask_char == 'p':
-            return char in '-|+/\\tT╬╗╔║═↙↘⇓⇑*⁕'
+            return char in '-|+/\\tT╬╗╔║═↙↘v^<>⇓⇑⇐⇒*⁕'
         elif mask_char == 'h':
-            return char in '-+/\\tT╬╗╔═↙↘⇓⇑*⁕'
+            return char in '-+/\\tT╬╗╔═↙↘<>⇐⇒*⁕'
         elif mask_char == 'v':
-            return char in '|+/\\tT╬╗╔║↙↘⇓⇑*⁕'
+            return char in '|+/\\tT╬╗╔║↙↘v^⇓⇑*⁕'
         elif mask_char == 'w':
             return char in '.+/\\tT┆┄╯╰╮╭┼↙↘:!'
         elif mask_char == '_':

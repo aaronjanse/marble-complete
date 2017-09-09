@@ -95,7 +95,7 @@ class Marble:
 
     def _calculate_direction(self):
         """Calculate the inial direction of a just created marble."""
-        valid_chars = r'\/*^v><+═║╔╗╚╝'
+        valid_chars = r'\/*^v><+═║╔╗╚╝⇓⇑⇐⇒'
 
         for direction in DIRECTIONS:
             loc = self.pos + direction
