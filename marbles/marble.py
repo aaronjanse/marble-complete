@@ -74,6 +74,8 @@ class Marble:
         elif char.isToggler():
             self.dir = LEFT if char.tilt == RIGHT_TILT else RIGHT
             char.toggle()
+        elif char == ' ':
+            self.is_dead = True
 
         self.pos += self.dir
 
