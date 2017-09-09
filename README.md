@@ -29,20 +29,20 @@ A starting marble is represented with a lowercase o (`o`).
 Program execution ends when a marble rolls over an ampersand (`&`).
 
 ### Comments
-Everything on a line after 2 backticks (` `` `) is considered a comment and is ignored by the interpreter.
+Everything on a line after a pound symbol (`#`) is considered a comment and is ignored by the interpreter.
 
 ```
-& `` This text is a comment.
+& # This text is a comment.
 ```
 
 ### Paths
 Marbles travel down paths (`|` or `-`):
 
 ```
-o `` This is where the program starts
-| `` The marble travels downwards
-| `` Keep on going!
-& `` The program ends
+o # This is where the program starts
+| # The marble travels downwards
+| # Keep on going!
+& # The program ends
 ```
 
 Think as these two paths as mirrors:  
@@ -52,14 +52,14 @@ Think as these two paths as mirrors:
 You can use them to make a path turn:
 
 ```
-/-&         `` This is where the program ends!
+/-&         # This is where the program ends!
 |
 \-\ /-\
   | | |
 /-/ | \-\
 \---/   |
         |
-        \-o `` Here's where the program starts
+        \-o # Here's where the program starts
 ```
 
 #### Special Paths
@@ -73,7 +73,7 @@ You can use them to make a path turn:
 Here's a way to "bounce" a marble backwards along its original path using these symbols:
 
 ```
-/->-- `` Input/output comes through here
+/->-- # Input/output comes through here
 | |
 \-/
 ```
@@ -88,7 +88,7 @@ But there's an easier way to do that:
 Here's a fun example of using these special paths. Don't worry—we'll soon be able to do more than just start then end a program.
 
 ```
-  /-\ /-& `` End
+  /-\ /-& # End
   | | |
   \-+-v
     | | /-\
@@ -96,7 +96,7 @@ Here's a fun example of using these special paths. Don't worry—we'll soon be a
   |   \-<-/
   \-\
     |
-    o    `` Start
+    o    # Start
 ```
 
 ## Togglers

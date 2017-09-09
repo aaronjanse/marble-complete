@@ -45,13 +45,9 @@ class World(object):
 
     def _update_class_of_marbles(self):
         for y, char_list in enumerate(self.map):
-            last_was_backtick = False
             for x, char in enumerate(char_list):
-                if char.literal == '`':
-                    if not last_was_backtick:
-                        last_was_backtick = True
-                    else:
-                        break
+                if char.literal == '#': # We reached a comment delimiter
+                    break
 
                 if char.literal == 'o':
                     self.map[y][x] = MarbleChar(self.env, Pos(x, y), char)
