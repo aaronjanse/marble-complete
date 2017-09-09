@@ -178,7 +178,7 @@ class World(object):
     def _get_lib_files_by_alias(map):
         """
         Get the librairy files by alias char defined.
-        
+
         :param List[List[Char]] map: The map to import
         """
 
@@ -286,7 +286,7 @@ class World(object):
                     else:
                         break
 
-                if char == '.':
+                if char == 'o':
                     self.map[y][x] = DotChar(char)
 
     # ✓
