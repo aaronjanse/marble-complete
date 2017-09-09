@@ -12,7 +12,6 @@ class AsciiMarblesInterpreter(object):
         :param marbles.environement.Env env: The environement for the program
         :param str program: The code of the program
         :param str program_dir: The path to the program directory
-        :param bool run_in_parallel: temporarily, changes the way marbles move : one by one or all at the same time
         """
 
         self.env = env

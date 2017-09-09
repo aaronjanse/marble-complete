@@ -25,10 +25,6 @@ class Marble:
         return '<Marble pos={pos}, dir={dir}>'.format(**self.__dict__)
 
     def simulate_tick(self):
-        """
-        :param bool run_until_waiting: if false, the marble will perform only one tick, else it will run untill waiting
-        """
-
         # If outside the map, he dies.
         if not self.env.world.does_loc_exist(self.pos):
             self.is_dead = True
