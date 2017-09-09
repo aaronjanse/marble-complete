@@ -1,6 +1,6 @@
 import threading
 
-from .dot import Marble
+from .marble import Marble
 from .world import World
 
 
