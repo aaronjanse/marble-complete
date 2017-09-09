@@ -293,6 +293,7 @@ class DefaultIOCallbacks(IOCallbacksStorage):
 
 @click.command()
 @click.argument('filename')
+@click.option('--prettify', '-p', is_flag=True, help='Prettify source code before running (for debugging).')
 @click.option('--debug', '-d', is_flag=True, help='Show the execution of the program and the course of the marbles.')
 @click.option('--autostep_debug', '-a', default=False, help='The time between every tick')
 @click.option('--output_limit', '-o', default=0, help='Terminate the program after N outputs.')
@@ -300,7 +301,7 @@ class DefaultIOCallbacks(IOCallbacksStorage):
 @click.option('--silent', '-s', is_flag=True, help='No printing, for benchmarking.')
 @click.option('--compat_debug', '-w', is_flag=True, help='Force the debug rendering without ncurses.')
 @click.option('--debug_lines', '-l', default=default_debug_lines, help='The size of the debug view.')
-def main(filename, ticks, silent, debug, compat_debug, debug_lines, autostep_debug, output_limit):
+def main(filename, prettify, ticks, silent, debug, compat_debug, debug_lines, autostep_debug, output_limit):
     global interpreter
 
     if autostep_debug is not False:
@@ -314,6 +315,12 @@ def main(filename, ticks, silent, debug, compat_debug, debug_lines, autostep_deb
     program_dir = os.path.dirname(os.path.abspath(filename))
     with open(filename, 'r') as file:
         program = file.read()
+
+    if prettify:
+        del prettify # to make things less confusing, the boolean is now gone
+
+        from prettify import prettify
+        program = prettify(program)
 
     try:
         interpreter = AsciiMarblesInterpreter(env, program, program_dir)

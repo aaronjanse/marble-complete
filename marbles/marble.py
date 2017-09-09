@@ -43,21 +43,21 @@ class Marble:
         self.move(char)
 
     def move(self, char):
-        if char == '\\':
+        if char in '\\╗╚':
             self._change_dir_with_func(lambda dir: Pos(dir.y, dir.x))
-        elif char == '/':
+        elif char in '/╝╔':
             self._change_dir_with_func(lambda dir: Pos(-dir.y, -dir.x))
         elif char == '(':
             self.dir = RIGHT
         elif char == ')':
             self.dir = LEFT
-        elif char == '>' and self._is_moving_vert():
+        elif char in '>⇒' and self._is_moving_vert():
             self.dir = RIGHT
-        elif char == '<' and self._is_moving_vert():
+        elif char in '<⇐' and self._is_moving_vert():
             self.dir = LEFT
-        elif char == '^' and self._is_moving_horiz():
+        elif char in '^⇑' and self._is_moving_horiz():
             self.dir = UP
-        elif char == 'v' and self._is_moving_horiz():
+        elif char in 'v⇓' and self._is_moving_horiz():
             self.dir = DOWN
         elif char == '*':
             for dir in DIRECTIONS:
@@ -92,7 +92,7 @@ class Marble:
 
     def _calculate_direction(self):
         """Calculate the inial direction of a just created marble."""
-        valid_chars = r'\/*^v><+'
+        valid_chars = r'\/*^v><+═║╔╗╚╝'
 
         for direction in DIRECTIONS:
             loc = self.pos + direction
