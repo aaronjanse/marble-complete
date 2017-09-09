@@ -22,7 +22,6 @@ An open gate is represented by a colon (`:`) and a closed gate is represented by
 
 A gate can be opened/closed via a pulse from a toggler down a connected wire.
 
-<sub>
 ## Ascii vs Unicode source
 Programs are typically written with AsciiDots' ascii path rules:
 
@@ -61,7 +60,6 @@ Programs are typically written with AsciiDots' ascii path rules:
 ```
 
 Prettified code can always be re-asciified via `asciify.py`.
-</sub>
 
 ---
 
