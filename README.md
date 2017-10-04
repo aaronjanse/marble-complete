@@ -1,7 +1,7 @@
 A fork of AsciiDots based on turing-complete marble runs
 
 <a class="anchor" name="demo-gif"></a>
-![Fun demo looks cool](https://raw.githubusercontent.com/aaronduino/marble-complete/master/demo.gif)
+[![Fun demo looks cool](https://raw.githubusercontent.com/aaronduino/marble-complete/master/demo.gif)](https://aaronduino.github.io/marble-complete/demo?code=%0A%20%20%20%20o%0A%20%20%20%20%7C%0A%2F---v---%5C%0A%7C%20%20%20%7C%20%20%20%7C%0A%3A.%2F-t-%5C%20%7C%0A%7C.%2B..%20%7C%20%7C%0A%7C%20%7C%20%20%20%7C%20%7C%0A%5E-t%20%20%20t-%2F%0A%7C%20.....%0Ao%0A)
 
 Inspired by:
 https://nbickford.wordpress.com/2014/03/25/images-from-marble-runs-and-turing-machines/
