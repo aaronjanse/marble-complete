@@ -2,6 +2,7 @@ import sys
 
 from .constants import DIRECTIONS, RIGHT, LEFT, UP, DOWN, RIGHT_TILT
 from .vector import Pos
+from .chars import Conditional
 
 
 class Marble:
@@ -77,6 +78,8 @@ class Marble:
             char.send_pulse_over_wire(char.pos)
         elif char.isGate() and not char.is_open:
             return  # early return; don't update self.pos
+        elif isinstance(char, Conditional):
+            self.dir = char.get_direction()
         elif char.literal == ' ':
             self.is_dead = True
 

@@ -67,7 +67,7 @@ class Toggler(Char):
                 char.is_active = True
                 known_positions = self.send_pulse_over_wire(
                     new_pos, known_positions)
-            elif char.isToggler() or char.isGate():
+            elif char.isToggler() or char.isGate() or isinstance(char, Output):
                 char.toggle()
                 known_positions.append(new_pos)
 
@@ -105,3 +105,22 @@ class Wire(Char):
 
     def isWire(self):
         return True
+
+
+class Conditional(Char):
+    def __init__(self, env, pos, literal):
+        super().__init__(env, pos, literal)
+
+    def get_direction(self):
+        input_ = self.env.io.get_input().strip()
+        return LEFT if (input_ == '0') else RIGHT
+
+
+class Output(Char):
+    def __init__(self, env, pos, literal):
+        super().__init__(env, pos, literal)
+
+        self.literal = str(literal)
+
+    def toggle(self):
+        self.env.io.on_output(self.literal)

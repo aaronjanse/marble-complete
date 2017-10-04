@@ -61,6 +61,10 @@ class World(object):
                     self.map[y][x] = Gate(self.env, Pos(x, y), char)
                 elif char.literal in '*+/\\┼╭╮╰╯┄┆╫.':
                     self.map[y][x] = Wire(self.env, Pos(x, y), char)
+                elif char.literal == '?':
+                    self.map[y][x] = Conditional(self.env, Pos(x, y), char)
+                elif char.literal in '01':
+                    self.map[y][x] = Output(self.env, Pos(x, y), char)
 
     def _char_obj_array_iter(self, obj_array):
         for char_list in obj_array:

@@ -118,6 +118,24 @@ A gate can be opened/closed via a pulse from a toggler down a connected wire.
 
 Gates are useful when you want to control the order in which marbles move.
 
+## IO
+Getting input from stdin is very simple. Whenever a marble rolls onto a question mark (`?`), it reads one character from stdin. If that character is a `0`, the marble moves to the left, and if the character is a `1`, the marble  moves to the right. If the character read from std in is neither a `0` nor a `1`, an exception is thrown.
+
+Example:
+
+```
+  o
+  |
+/-?-\
+|   |
+|   \-- # the input was `1`
+|
+\------ # the input was `0`
+```
+
+If a wire activates a `1`, a `1` is printed to stdout. If a wire activates a `0`, a `0` is printed to stdout.  
+`0`'s and `1`'s are conductive, meaning that can act like wires.
+
 ## Ascii vs Unicode source
 Programs are typically written with AsciiDots' ascii path rules:
 
