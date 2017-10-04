@@ -53,4 +53,3 @@ class Pos(object):
     @col.setter
     def col(self, value):
         self.x = value
-

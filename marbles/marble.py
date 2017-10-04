@@ -68,7 +68,7 @@ class Marble:
 
                 if self.env.world.does_loc_exist(next_pos) and self.env.world.get_char_at(next_pos) != ' ':
                     new_marble = Marble(self.env, self.pos, direction=dir)
-                    new_marble.pos += dir # make sure it doesn't start on the astrisk and duplicate itself
+                    new_marble.pos += dir  # make sure it doesn't start on the astrisk and duplicate itself
 
                     self.env.marbles.append(new_marble)
         elif char.isToggler():
@@ -76,7 +76,7 @@ class Marble:
             char.toggle()
             char.send_pulse_over_wire(char.pos)
         elif char.isGate() and not char.is_open:
-            return # early return; don't update self.pos
+            return  # early return; don't update self.pos
         elif char.literal == ' ':
             self.is_dead = True
 
@@ -114,7 +114,8 @@ class Marble:
                 return direction
 
         # If we get here without returning, the marble can't find a direction to go!
-        self.env.io.on_error("marble cannot determine location...\nx: {}, y: {}".format(*self.pos))
+        self.env.io.on_error(
+            "marble cannot determine location...\nx: {}, y: {}".format(*self.pos))
 
         self.is_dead = True
         return Pos(0, 0)

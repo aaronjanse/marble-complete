@@ -1,5 +1,6 @@
 class IOCallbacksStorage(object):
     """ This class stores user-defined callbacks. Feel free to inherit this! """
+
     def __init__(self, env):
         """
         The base interface for inputs and outputs for a asciimarbles program.
@@ -34,6 +35,7 @@ class IOCallbacksStorage(object):
 
 class IOCallbacksStorageConstructor(object):
     """ This is just a way to build an IOCallbacksStorage equivalent object """
+
     def __init__(self, get_input, on_output, on_finish, on_error, on_microtick):
         self.get_input = get_input
         self.on_output = on_output

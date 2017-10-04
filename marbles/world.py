@@ -46,7 +46,7 @@ class World(object):
     def _update_class_of_marbles(self):
         for y, char_list in enumerate(self.map):
             for x, char in enumerate(char_list):
-                if char.literal == '#': # We reached a comment delimiter
+                if char.literal == '#':  # We reached a comment delimiter
                     break
 
                 if char.literal == 'o':

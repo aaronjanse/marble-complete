@@ -19,6 +19,3 @@ class Env(object):
         self.marbles = marbles
         self.io = io
         self.interpreter = interpreter
-
-
-

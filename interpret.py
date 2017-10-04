@@ -90,7 +90,8 @@ class DefaultIOCallbacks(IOCallbacksStorage):
             curses.curs_set(False)
 
             # defining the two main parts of the screen: the view of the program
-            self.win_program = curses.newwin(self.debug_lines, curses.COLS - 1, 0, 0)
+            self.win_program = curses.newwin(
+                self.debug_lines, curses.COLS - 1, 0, 0)
             # and pad for the output of the prog
             self.logging_pad = curses.newpad(1000, curses.COLS - 1)
 
@@ -141,17 +142,16 @@ class DefaultIOCallbacks(IOCallbacksStorage):
 
         if not self.debug:
             print(value, end='', flush=True)
-
         elif self.compat_debug:
             # we add the ouput to the buffer
             self.compat_logging_buffer += value
             # and we keep the maximum number of line to compat_logging_buffer_lines
             self.compat_logging_buffer = '\n'.join(
                 self.compat_logging_buffer.split('\n')[-self.compat_logging_buffer_lines:])
-
         else:
             # add the output string to the pad
-            self.logging_pad.addstr(self.logging_loc, self.logging_x, str(value))
+            self.logging_pad.addstr(
+                self.logging_loc, self.logging_x, str(value))
             self.logging_pad.refresh(self.logging_loc - min(self.logging_loc, curses.LINES -
                                                             self.debug_lines - 1),
                                      0, self.debug_lines, 0, curses.LINES - 1, curses.COLS - 1)
@@ -186,7 +186,8 @@ class DefaultIOCallbacks(IOCallbacksStorage):
 
             display_y = 0
             last_line_is_empty = False
-            marbles_position_list = [d.pos for d in self.env.marbles if not d.is_dead]
+            marbles_position_list = [
+                d.pos for d in self.env.marbles if not d.is_dead]
 
             # cleaning the screen
             if self.compat_debug:
@@ -226,15 +227,19 @@ class DefaultIOCallbacks(IOCallbacksStorage):
                             display_char = 't' if char.is_ascii else '↘'
                         elif char.tilt == RIGHT_TILT:
                             display_char = 'T' if char.is_ascii else '↙'
-                        self.print_char(display_char, 4 if not is_dot_loc else 1, display_y, x)
+                        self.print_char(
+                            display_char, 4 if not is_dot_loc else 1, display_y, x)
                     elif char.isGate():
                         display_char = ':' if char.is_open else '!'
-                        self.print_char(display_char, 3 if not is_dot_loc else 1, display_y, x)
+                        self.print_char(
+                            display_char, 3 if not is_dot_loc else 1, display_y, x)
                     elif char.isWire() and char.is_active:
-                        self.print_char(char.literal, 2 if not is_dot_loc else 1, display_y, x)
+                        self.print_char(
+                            char.literal, 2 if not is_dot_loc else 1, display_y, x)
                         char.is_active = False
                     else:
-                        self.print_char(char.literal, 0 if not is_dot_loc else 1, display_y, x)
+                        self.print_char(
+                            char.literal, 0 if not is_dot_loc else 1, display_y, x)
 
                 if self.compat_debug:
                     print()
@@ -291,9 +296,11 @@ class DefaultIOCallbacks(IOCallbacksStorage):
                 # Zero is the regular print, but the code 33 will draw black over black and we dont want that
                 print(char, end='')
             else:
-                print('\033[0;3', color_code, 'm', char, '\033[0m', sep='', end='')
+                print('\033[0;3', color_code, 'm',
+                      char, '\033[0m', sep='', end='')
         else:
-            self.win_program.addstr(row, col, char, curses.color_pair(color_code))
+            self.win_program.addstr(
+                row, col, char, curses.color_pair(color_code))
 
 
 @click.command()
@@ -315,14 +322,15 @@ def main(filename, prettify, ticks, silent, debug, compat_debug, debug_lines, au
     compat_debug = compat_debug or compat_debug_default
 
     env = Env()
-    io_callbacks = DefaultIOCallbacks(env, ticks, silent, debug, compat_debug, debug_lines, autostep_debug, output_limit)
+    io_callbacks = DefaultIOCallbacks(
+        env, ticks, silent, debug, compat_debug, debug_lines, autostep_debug, output_limit)
 
     program_dir = os.path.dirname(os.path.abspath(filename))
     with open(filename, 'r') as file:
         program = file.read()
 
     if prettify:
-        del prettify # to make things less confusing, the boolean is now gone
+        del prettify  # to make things less confusing, the boolean is now gone
 
         from prettify import prettify
         program = prettify(program)

@@ -1,5 +1,6 @@
 from .constants import LEFT, RIGHT, UP, DOWN, LEFT_TILT, RIGHT_TILT
 
+
 class Char(object):
     def __init__(self, env, pos, literal):
         self.env = env
@@ -64,16 +65,17 @@ class Toggler(Char):
             char = self.env.world.get_char_at(new_pos)
             if char.isWire():
                 char.is_active = True
-                known_positions = self.send_pulse_over_wire(new_pos, known_positions)
+                known_positions = self.send_pulse_over_wire(
+                    new_pos, known_positions)
             elif char.isToggler() or char.isGate():
                 char.toggle()
                 known_positions.append(new_pos)
-
 
         return known_positions
 
     def isToggler(self):
         return True
+
 
 class Gate(Char):
     def __init__(self, env, pos, literal):
@@ -93,6 +95,7 @@ class Gate(Char):
 
     def isGate(self):
         return True
+
 
 class Wire(Char):
     def __init__(self, env, pos, literal):

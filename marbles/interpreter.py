@@ -42,7 +42,8 @@ class AsciiMarblesInterpreter(object):
         """
 
         if run_in_separate_thread:
-            inter_thread = threading.Thread(target=self.run, daemon=make_thread_daemon)
+            inter_thread = threading.Thread(
+                target=self.run, daemon=make_thread_daemon)
             inter_thread.start()
             return
 
