@@ -14,6 +14,18 @@
     <meta name="author" content="Aaron Janse">
 
     <style>
+    @font-face{
+    font-family: 'Source Code Pro';
+    font-weight: 400;
+    font-style: normal;
+    font-stretch: normal;
+    src: url('EOT/SourceCodePro-Regular.eot') format('embedded-opentype'),
+         url('WOFF2/TTF/SourceCodePro-Regular.ttf.woff2') format('woff2'),
+         url('WOFF/OTF/SourceCodePro-Regular.otf.woff') format('woff'),
+         url('OTF/SourceCodePro-Regular.otf') format('opentype'),
+         url('TTF/SourceCodePro-Regular.ttf') format('truetype');
+}
+
         #txtarea {
             height: 225px;
         }
@@ -32,7 +44,7 @@
         }
 
         #txtarea, #out, #debug_output {
-            font-family: monospace;
+            font-family: 'Source Code Pro', monospace;
         }
 
         body {
@@ -83,6 +95,7 @@
     </button>
     <ul id="demolist" class="dropdown-menu">
         <li><a>Hello World</a></li>
+        <li><a>Fun Loop</a></li>
     </ul>
     </div>
     </div>
@@ -114,7 +127,19 @@
 
         console.log(params.code)
 
-        var default_code = encodeURIComponent('o----')
+        var default_code = encodeURIComponent(
+`
+    o
+    |
+/---v---\
+|   |   |
+:./-t-\ |
+|.+.. | |
+| |   | |
+^-t   t-/
+| .....
+o
+`)
         params.code = decodeURIComponent(params.code || default_code)
 
         document.getElementById('txtarea').value = params.code
@@ -219,7 +244,22 @@
 /-o
 t
 .
-..01001000011001010110110001101100011011110010110000100000010101110110111101110010011011000110010000100001
+........................................................................................................
+10000100001001100011011001001110111101101110101000000100001101001111011000110110001101101010011000010010
+`
+            } else if (val == 'Fun Loop') {
+              document.getElementById("txtarea").value =
+`
+    o
+    |
+/---v---\\
+|   |   |
+:./-t-\\ |
+|.+.. | |
+| |   | |
+^-t   t-/
+| .....
+o
 `
             }
         });
