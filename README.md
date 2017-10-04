@@ -180,15 +180,15 @@ Prettified code can always be re-asciified via `asciify.py`.
 Memory Cell:
 
 ```
-o
-|
-v----------------- # query
-|
-|     /----------- # set to 0
-|     |   /------- # set to 1
-|     |   |
-|     |   |    /-- # toggle
-|     v\ /v    |
+ o
+ |
+ v----------------- # query
+ |
+ |     /----------- # set to 0
+ |     |   /------- # set to 1
+ |     |   |
+ |     |   |    /-- # toggle
+ |     v\ /v    |
 /t\   /t/ \t\  /t\
 |.+.. |.   .|  |.|
 \v/ ..+.....+..+.|
