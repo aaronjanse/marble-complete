@@ -109,7 +109,7 @@ class DefaultIOCallbacks(IOCallbacksStorage):
             else:
                 return input('?: ')
         else:
-            return self.curses_input(self.stdscr, curses.LINES - 3, 2, '?: ')
+            return self.curses_input(self.stdscr, curses.LINES - 3, 2, '?: ').decode('utf-8')
 
     def curses_input(self, stdscr, row, col, prompt_string):
         """
