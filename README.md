@@ -1,16 +1,18 @@
-A fork of AsciiDots based on turing-complete marble runs
+# MarbleComplete
+_Build and simulate your own turing-complete marble runs with ascii/unicode art_
+
+I have always had a love for mechanical computers. After reading a wonderful post on [turing-complete marble runs](https://nbickford.wordpress.com/2014/03/25/images-from-marble-runs-and-turing-machines/), I decided that I wanted to design a turing-complete marble tower. From this desire was born MarbleComplete, the 2d esolang for designing (turing-complete) marble runs using [AsciiDots](https://github.com/aaronduino/asciidots) syntax.
+
+[![Join the chat at https://gitter.im/marble-complete/Lobby](https://badges.gitter.im/marble-complete/Lobby.svg)](https://gitter.im/marble-complete/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 <a class="anchor" name="demo-gif"></a>
 [![Fun demo looks cool](https://raw.githubusercontent.com/aaronduino/marble-complete/master/demo.gif)](https://aaronduino.github.io/marble-complete/demo?code=%0A%20%20%20%20o%0A%20%20%20%20%7C%0A%2F---v---%5C%0A%7C%20%20%20%7C%20%20%20%7C%0A%3A.%2F-t-%5C%20%7C%0A%7C.%2B..%20%7C%20%7C%0A%7C%20%7C%20%20%20%7C%20%7C%0A%5E-t%20%20%20t-%2F%0A%7C%20.....%0Ao%0A)
 
-Inspired by:
-https://nbickford.wordpress.com/2014/03/25/images-from-marble-runs-and-turing-machines/
-
-Unlike AsciiDots, the only logical operator in MarbleComplete is a _toggler_:
+Unlike it's parent [AsciiDots](https://github.com/aaronduino/asciidots), the only logical operator in MarbleComplete is a _toggler_:
 
 ![Turing Tumble Bit Piece](https://raw.githubusercontent.com/aaronduino/marble-complete/master/toggler.gif)
 
-The Turing Tumble kickstarter has a [gif of the real life equivalent](https://ksr-ugc.imgix.net/assets/016/325/165/19cae5d12c1d7fbeb07222b17ac63909_original.gif?w=680&fit=max&v=1492659230&auto=format&gif-q=50&q=92&s=d6d2f74ec54534198f285ee2f0672606)
+The Turing Tumble kickstarter has a [gif of the real life equivalent](https://ksr-ugc.imgix.net/assets/016/325/165/19cae5d12c1d7fbeb07222b17ac63909_original.gif?w=680&fit=max&v=1492659230&auto=format&gif-q=50&q=92&s=d6d2f74ec54534198f285ee2f0672606).
 
 ## Running the Interpreter
 
