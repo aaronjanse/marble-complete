@@ -10,7 +10,7 @@ import time
 
 import click
 
-from marbles.environement import Env
+from marbles.environment import Env
 
 if codecs.lookup(locale.getpreferredencoding()).name == 'ascii':
     os.environ['LANG'] = 'en_US.utf-8'
@@ -45,7 +45,7 @@ class DefaultIOCallbacks(IOCallbacksStorage):
     def __init__(self, env, ticks, silent, debug, compat_debug, debug_lines, autostep_debug, output_limit):
         """
 
-        :param marbles.environement.Env env: The env of the interpreter
+        :param marbles.environment.Env env: The env of the interpreter
         :param int ticks: The max number of ticks for the program
         :param bool silent: True to turn off all outputs
         :param bool debug: True to show the execution of the program

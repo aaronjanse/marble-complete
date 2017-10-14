@@ -9,7 +9,7 @@ class AsciiMarblesInterpreter(object):
         """
         Create a new instance of the interpreter to run the program.
 
-        :param marbles.environement.Env env: The environement for the program
+        :param marbles.environment.Env env: The environment for the program
         :param str program: The code of the program
         :param str program_dir: The path to the program directory
         """

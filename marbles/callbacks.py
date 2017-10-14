@@ -5,7 +5,7 @@ class IOCallbacksStorage(object):
         """
         The base interface for inputs and outputs for a asciimarbles program.
 
-        :type env: marbles.environement.Env
+        :type env: marbles.environment.Env
         """
         self.env = env
         self.env.io = self

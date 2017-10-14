@@ -5,7 +5,7 @@ class Env(object):
 
     def __init__(self, world=None, marbles=None, io=None, interpreter=None):
         """
-        Structure for the for important parts of a marbles environement.
+        Structure for the for important parts of a marbles environment.
 
         If you don't pass one of the 4 parameters, you need to set them quickly.
 

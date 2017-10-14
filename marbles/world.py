@@ -9,7 +9,7 @@ class World(object):
         """
         Create a new world to do marbles races !
 
-        :param marbles.environement.Env env: The environement for the program
+        :param marbles.environment.Env env: The environment for the program
         :param str world_map: The string representing the world.
         :param str program_dir: The directory of the program
         """

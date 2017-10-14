@@ -10,7 +10,7 @@ class Marble:
         """
         The base unit of and ascii marble code : the marble.
 
-        :param marbles.environement.Env env: The environement for the program
+        :param marbles.environment.Env env: The environment for the program
         :param marbles.vector.Pos pos: The position of the marble in the map
         :param marbles.vector.Pos direction: The direction of the marble
         """
