@@ -106,6 +106,10 @@ Here's a fun example of using these special paths. Don't worry—we'll soon be a
 If you want to create a toggler that starts learning _left_ (like \\), use a lowercase t (`t` -> `↘`).  
 If you want to create a toggler that starts learning _right_ (like /), use an uppercase T (`T` -> `↙`).
 
+Here's a visualization of what a toggler does:
+
+![Toggler](https://raw.githubusercontent.com/aaronduino/marble-complete/master/toggler.gif)
+
 ## Wires
 
 In order to make togglers move in unison (thereby allowing turing-completeness), connect them with _wires_.
